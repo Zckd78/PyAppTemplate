@@ -1,0 +1,78 @@
+import time
+import PrintFunctions
+import WebScraper
+import requests
+
+# Importing another file we wrote
+
+
+# Just testing a couple of data types
+#list = [1,2,3,4]
+#Dictionary = {'FName': 'Zachary', 'LName':'Chun-Scott','City':'Fresno'}
+
+
+pf = PrintFunctions.PrintFunctions()
+quit_State = False
+quit_String = "q!"
+welcomeMessage = 'Wecome to our awesome program! \n' \
+                  'type q! at any time to quit\n' \
+                  '\n' \
+                  'Here are your options: \n'
+
+options_List = ['1 : Web Scraper','2 : File ']
+
+# Main Program loop
+def Main():
+
+    quit_State = False
+
+    # Main running loop
+    # Program Flow at the Macro Scale
+    while(quit_State != True):
+        print('Title Menu'.center(200,'='))
+        pf.PrintPage(welcomeMessage)
+        pf.PrintMultiLine(options_List)
+        message = input("?> ")
+        QuitCheck(message)
+        Proceed(message)
+
+    CleanUp()
+
+
+
+# Determine course of action within here.
+# Breaking all the conditions out of the main function looks cleaner.
+def Proceed(input):
+
+    if(input == '1'):
+        i1_quit_state = False
+        while (i1_quit_state != True):
+            ws = WebScraper.Webscraper()
+            ws.Welcome()
+            url = input("?> ")
+            QuitCheck(url)
+
+        #Perform some action
+
+    elif(input == '2'):
+        print("You've chosen option two!")
+        pf.PressAny()
+        #Perform some other action
+    else:
+        print("Your input is invalid. Make another selection.")
+
+def CleanUp():
+    # Perform quitting cleanup
+    for i in range(3):
+        time.sleep(1)
+        pf.PrintPage("Cleaning up." + (i * "."))
+
+def QuitCheck(input):
+        if(input[0] == "q" and input[1] == "!"):
+            global quit_State
+            quit_State = True
+            return
+
+# Run the Main loop
+# Program starts here
+Main()
